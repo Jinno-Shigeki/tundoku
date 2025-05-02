@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		5A59F1DE2DC280CE00DEFF4C /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 5A59F1DD2DC280CE00DEFF4C /* AsyncAlgorithms */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		5A59F17C2DC1DC6100DEFF4C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A59F1DE2DC280CE00DEFF4C /* AsyncAlgorithms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 				5A59F16E2DC1DC5F00DEFF4C /* tundoku */,
 				5A59F17E2DC1DC6100DEFF4C /* tundokuTests */,
 				5A59F1882DC1DC6100DEFF4C /* tundokuUITests */,
+				5A59F1DC2DC280CE00DEFF4C /* Frameworks */,
 				5A59F16D2DC1DC5F00DEFF4C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +96,13 @@
 				5A59F1852DC1DC6100DEFF4C /* tundokuUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		5A59F1DC2DC280CE00DEFF4C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +125,7 @@
 			);
 			name = tundoku;
 			packageProductDependencies = (
+				5A59F1DD2DC280CE00DEFF4C /* AsyncAlgorithms */,
 			);
 			productName = tundoku;
 			productReference = 5A59F16C2DC1DC5F00DEFF4C /* tundoku.app */;
@@ -195,6 +209,9 @@
 			);
 			mainGroup = 5A59F1632DC1DC5F00DEFF4C;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				5A59F1DB2DC2807900DEFF4C /* XCRemoteSwiftPackageReference "swift-async-algorithms" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5A59F16D2DC1DC5F00DEFF4C /* Products */;
 			projectDirPath = "";
@@ -400,11 +417,13 @@
 				DEVELOPMENT_TEAM = X9TK8AD4Y9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "バーコードを読み取るためにカメラを起動します";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -428,11 +447,13 @@
 				DEVELOPMENT_TEAM = X9TK8AD4Y9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "バーコードを読み取るためにカメラを起動します";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -558,6 +579,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5A59F1DB2DC2807900DEFF4C /* XCRemoteSwiftPackageReference "swift-async-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-async-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5A59F1DD2DC280CE00DEFF4C /* AsyncAlgorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5A59F1DB2DC2807900DEFF4C /* XCRemoteSwiftPackageReference "swift-async-algorithms" */;
+			productName = AsyncAlgorithms;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5A59F1642DC1DC5F00DEFF4C /* Project object */;
 }
