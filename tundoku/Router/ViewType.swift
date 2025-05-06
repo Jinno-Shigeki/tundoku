@@ -14,6 +14,12 @@ enum ViewType: Hashable {
 }
 
 extension ViewType {
+    enum Path: Hashable {
+        case readingList
+        case book
+        case bookRegister
+    }
+    
     @ViewBuilder
     func makeView() -> some View {
         switch self {
@@ -22,7 +28,18 @@ extension ViewType {
         case .book(let isbnCode):
             BookView(isbnCode: isbnCode)
         case .bookRegister:
-            RegisterView()
+            BookRegisterView()
+        }
+    }
+    
+    var path: Path {
+        switch self {
+        case .readingList:
+            return .readingList
+        case .book:
+            return .book
+        case .bookRegister:
+            return .bookRegister
         }
     }
 }

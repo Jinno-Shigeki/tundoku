@@ -20,7 +20,7 @@ class BookViewModel {
     }
     
     func onFetch() async throws {
-        let result = try await bookRepository.fetchBook(isbnCode: isbnCode)
+        let result = try await bookRepository.fetch(isbnCode: isbnCode)
         book = result
     }
 }

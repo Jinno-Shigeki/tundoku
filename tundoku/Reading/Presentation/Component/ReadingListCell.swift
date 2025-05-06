@@ -34,9 +34,7 @@ struct ReadingListCell: View {
                 Spacer()
             }
             
-            if book.page != nil {
-                ReadingProgressView(totalPage: book.page ?? 0, readingPage: book.page ?? 0)
-            }
+            ReadingProgress(totalPage: book.page, readingPage: book.page)
         }
         .padding([.horizontal, .vertical], 16)
     }
@@ -46,12 +44,12 @@ struct ReadingListCell: View {
     VStack {
         ReadingListCell(
             book: Book(
-                isbn: "9784815615499",
                 title: "AWS運用入門",
+                page: 479,
                 author: "佐竹陽一, 山崎翔平, 小倉大",
                 publisher: "SBクリエイティブ株式会社",
                 publishDate: Date(),
-                page: 479,
+                isbn: "9784815615499",
                 imageUrl: nil
             )
         )
@@ -59,12 +57,12 @@ struct ReadingListCell: View {
         
         ReadingListCell(
             book: Book(
-                isbn: nil,
                 title: "AWS運用入門",
+                page: 0,
                 author: nil,
                 publisher: nil,
                 publishDate: nil,
-                page: nil,
+                isbn: nil,
                 imageUrl: nil
             )
         )

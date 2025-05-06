@@ -8,23 +8,26 @@
 import Foundation
 
 struct Book {
-    var isbn: String?
-    var title: String
-    var author: String?
-    var publisher: String?
-    var publishDate: Date?
-    var page: Int?
-    var imageUrl: URL?
+    let id: String
+    let title: String
+    let page: Int
+    let author: String?
+    let publisher: String?
+    let publishDate: Date?
+    let isbn: String?
+    let imageUrl: URL?
     
     init(
-        isbn: String? = nil,
+        id: String = UUID().uuidString,
         title: String,
+        page: Int,
         author: String? = nil,
         publisher: String? = nil,
         publishDate: Date? = nil,
-        page: Int? = nil,
+        isbn: String? = nil,
         imageUrl: URL? = nil
     ) {
+        self.id = id
         self.isbn = isbn
         self.title = title
         self.author = author
@@ -32,5 +35,13 @@ struct Book {
         self.publishDate = publishDate
         self.page = page
         self.imageUrl = imageUrl
+    }
+    
+    static func isValidRequiredInput(title: String, page: String) -> Bool {
+        !title.isEmpty && !page.isEmpty
+    }
+    
+    static func isValidPageInput(_ page: String) -> Bool {
+        (Int(page) ?? 0) > 0
     }
 }

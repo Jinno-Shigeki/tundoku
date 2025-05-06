@@ -8,5 +8,8 @@
 import Foundation
 
 protocol BookRepository: Sendable {
-    func fetchBook(isbnCode: String) async throws -> Book
+    func fetch(isbnCode: String) async throws -> Book
+
+    @MainActor
+    func registerOrUpdate(book: Book) throws
 }

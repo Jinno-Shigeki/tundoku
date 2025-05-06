@@ -1,0 +1,116 @@
+//
+//  ReadingRegisterView.swift
+//  tundoku
+//
+//  Created by 神野成紀 on 2025/05/04.
+//
+
+import SwiftUI
+
+struct ReadingRegisterView: View {
+    @State var viewModel = ReadingRegisterViewModel()
+    
+    let book: Book
+    
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 32) {
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("現在のページ")
+                        .font(.subheadline.bold())
+                    
+                    TextField("0", value: $viewModel.readingPage, format: .number)
+                        .font(.body)
+                        .padding([.vertical, .horizontal], 12)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.gray, lineWidth: 0.5)
+                        }
+                        .keyboardType(.numberPad)
+                }
+                
+                VStack(alignment: .leading, spacing: 16) {
+                    HStack(alignment: .bottom) {
+                        Text("進捗")
+                            .font(.subheadline.bold())
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        let percentage: Double = Double(viewModel.readingPage) / Double(book.page) * 100
+                        Text("\(String(format: "%.0f", percentage))%")
+                            .fontWeight(.thin)
+                            .font(.footnote.bold())
+                    }
+                    
+                    ProgressView(value: Double(viewModel.readingPage) / Double(book.page))
+                        .progressViewStyle(.linear)
+                        .scaleEffect(x: 1, y: 1.4)
+                    
+                    Text("残りページ数: \(book.page - viewModel.readingPage)")
+                        .fontWeight(.thin)
+                        .font(.footnote.bold())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
+                VStack(alignment: .leading, spacing: 24) {
+                    Text("本の情報")
+                        .font(.headline)
+
+                    HStack(alignment: .top) {
+                        AsyncImage(url: book.imageUrl) { image in
+                            image
+                                .scaledToFit()
+                                .frame(width: 75, height: 90)
+                                .background(.gray.opacity(0.2))
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                        } placeholder: {
+                            Image(systemName: "book.closed")
+                                .scaledToFit()
+                                .frame(width: 75, height: 90)
+                                .background(.gray.opacity(0.2))
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                        }
+                        
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(book.title)
+                                .font(.caption.bold())
+                            
+                            if let author = book.author {
+                                Text("\(book.author ?? "不明")")
+                                    .fontWeight(.thin)
+                                    .font(.caption2)
+                            }
+                            
+                            Text("\(book.page) ページ")
+                                .fontWeight(.thin)
+                                .font(.caption2)
+                        }
+                    }
+                    
+                    Text(book.publisher ?? "")
+                        .font(.caption)
+                    
+                    Text(book.isbn ?? "")
+                        .font(.caption)
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.top, 24)
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    viewModel.register()
+                } label: {
+                    Text("追加")
+                }
+            }
+        }
+        .navigationTitle("進捗を追加")
+    }
+}
+
+#Preview {
+    NavigationStack {
+        ReadingRegisterView(book: Book(title: "ドメイン駆動設計", page: 100, author: "太郎くん", publisher: "田中出版", isbn: "9784813014117"))
+    }
+}

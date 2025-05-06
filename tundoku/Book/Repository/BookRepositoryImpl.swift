@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftData
 
 struct BookRepositoryImpl: BookRepository {
     let openBDRepository: OpenBDRepository
@@ -14,16 +15,39 @@ struct BookRepositoryImpl: BookRepository {
         self.openBDRepository = openBDRepository
     }
     
-    func fetchBook(isbnCode: String) async throws -> Book {
+    func fetch(isbnCode: String) async throws -> Book {
         let result = try await openBDRepository.fetchBook(isbnCode: isbnCode)
         return Book(
-            isbn: result.summary.isbn,
             title: result.summary.title ?? "",
+            page: 0,
             author: result.summary.author,
             publisher: result.summary.publisher,
             publishDate: result.summary.convertDate(),
-            page: nil,
+            isbn: result.summary.isbn,
             imageUrl: result.summary.convertURL()
+        )
+    }
+    
+    @MainActor
+    func registerOrUpdate(book: Book) throws {
+        let bookData = convert(book: book)
+        let context = ModelContainer.appContainer.mainContext
+        context.insert(bookData)
+        try context.save()
+    }
+}
+
+extension BookRepositoryImpl {
+    private func convert(book: Book) -> BookData {
+        BookData(
+            id: book.id,
+            title: book.title,
+            page: book.page,
+            author: book.author,
+            publisher: book.publisher,
+            publishDate: book.publishDate,
+            isbn: book.isbn,
+            imageUrl: book.imageUrl
         )
     }
 }
