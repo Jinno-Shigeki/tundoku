@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Book {
+struct Book: Hashable {
     let id: String
     let title: String
     let page: Int

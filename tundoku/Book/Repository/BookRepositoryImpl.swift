@@ -35,6 +35,14 @@ struct BookRepositoryImpl: BookRepository {
         context.insert(bookData)
         try context.save()
     }
+    
+    @MainActor
+    func fetchAll() throws -> [Book] {
+        let context = ModelContainer.appContainer.mainContext
+        let fetchDescriptor = FetchDescriptor<BookData>(predicate: nil, sortBy: [.init(\.updatedAt)] )
+        let bookDatas = try context.fetch(fetchDescriptor)
+        return bookDatas.map { convertData(bookData: $0) }
+    }
 }
 
 extension BookRepositoryImpl {
@@ -48,6 +56,19 @@ extension BookRepositoryImpl {
             publishDate: book.publishDate,
             isbn: book.isbn,
             imageUrl: book.imageUrl
+        )
+    }
+    
+    private func convertData(bookData: BookData) -> Book {
+        Book(
+            id: bookData.id,
+            title: bookData.title,
+            page: bookData.page,
+            author: bookData.author,
+            publisher: bookData.publisher,
+            publishDate: bookData.publishDate,
+            isbn: bookData.isbn,
+            imageUrl: bookData.imageUrl
         )
     }
 }

@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct ReadingRegisterView: View {
-    @State var viewModel = ReadingRegisterViewModel()
+    @State var viewModel = ReadingRegisterViewModel(
+        readingRepository: ReadingRepositoryImpl()
+    )
     
     let book: Book
     
@@ -75,7 +77,7 @@ struct ReadingRegisterView: View {
                                 .font(.caption.bold())
                             
                             if let author = book.author {
-                                Text("\(book.author ?? "不明")")
+                                Text(author)
                                     .fontWeight(.thin)
                                     .font(.caption2)
                             }
@@ -99,7 +101,7 @@ struct ReadingRegisterView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    viewModel.register()
+                    viewModel.register(bookid: book.id)
                 } label: {
                     Text("追加")
                 }

@@ -16,14 +16,18 @@ final class ReadingRegisterViewModel {
     
     var alert: (isActive: Bool, title: String, message: String) = (false, "", "")
     
-    @ObservationIgnored
-    var isRegistered: Bool = false
+    let readingRepository: ReadingRepository
 
     
-    init() {
+    init(readingRepository: ReadingRepository) {
+        self.readingRepository = readingRepository
     }
     
-    func register() {
-        isRegistered = true
+    func register(bookid: String) {
+        do {
+            try readingRepository.register(bookId: bookid, readingPage: readingPage)
+        } catch {
+            alert = (true, "追加できませんでした、もう一度お試しください。", error.localizedDescription)
+        }
     }
 }

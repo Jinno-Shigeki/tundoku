@@ -18,6 +18,8 @@ final class BookData {
     var publishDate: Date?
     var isbn: String?
     var imageUrl: URL?
+    var createdAt: Date
+    var updatedAt: Date
     
     init(
         id: String = UUID().uuidString,
@@ -27,7 +29,9 @@ final class BookData {
         publisher: String? = nil,
         publishDate: Date? = nil,
         isbn: String? = nil,
-        imageUrl: URL? = nil
+        imageUrl: URL? = nil,
+        createdAt: Date = Date(),
+        updatedAt: Date = Date()
     ) {
         self.id = id
         self.title = title
@@ -37,5 +41,7 @@ final class BookData {
         self.publishDate = publishDate
         self.isbn = isbn
         self.imageUrl = imageUrl
+        self.createdAt = Date()
+        self.updatedAt = Date()
     }
 }

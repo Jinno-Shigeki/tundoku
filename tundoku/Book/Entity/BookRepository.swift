@@ -11,5 +11,7 @@ protocol BookRepository: Sendable {
     func fetch(isbnCode: String) async throws -> Book
 
     @MainActor
+    func fetchAll() throws -> [Book]
+    @MainActor
     func registerOrUpdate(book: Book) throws
 }
