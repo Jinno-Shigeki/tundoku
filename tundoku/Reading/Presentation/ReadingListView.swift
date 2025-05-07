@@ -14,12 +14,15 @@ struct ReadingListView: View {
     )
     @State private var actionSheetIsPresented: Bool = false
     
-    private var router: Router = .shared
-    
     var body: some View {
         ScrollView {
             ForEach(viewModel.readingBooks, id: \.self) { readingBook in
-                ReadingListCell(readingBook: readingBook)
+                Button {
+                    Router.shared.push(.readingEditor(readingBook: readingBook))
+                } label: {
+                    ReadingListCell(readingBook: readingBook)
+                }
+                .tint(.primary)
             }
         }
         .onAppear {
@@ -34,17 +37,17 @@ struct ReadingListView: View {
                 }
             }
         }
-        .confirmationDialog("進捗を追加する", isPresented: $actionSheetIsPresented, titleVisibility: .visible, actions: {
+        .confirmationDialog("進捗を追加", isPresented: $actionSheetIsPresented, titleVisibility: .visible, actions: {
             Button {
-                
+                Router.shared.push(.bookSelector)
             } label: {
-                Text("進捗を追加")
+                Text("追加")
             }
         
             Button {
-                router.push(.bookRegister)
+                Router.shared.push(.bookRegister)
             } label: {
-                Text("本を登録して進捗を追加")
+                Text("本を登録して追加")
             }
         })
         .navigationTitle("一覧")

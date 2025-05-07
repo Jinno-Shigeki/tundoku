@@ -8,38 +8,27 @@
 import SwiftUI
 
 enum ViewType: Hashable {
-    case readingList
-    case book(isbnCode: String)
     case bookRegister
+    case bookSelector
+    case readingEditor(readingBook: ReadingBook)
+    case readingList
+    case readingRegister(book: Book)
 }
 
 extension ViewType {
-    enum Path: Hashable {
-        case readingList
-        case book
-        case bookRegister
-    }
-    
     @ViewBuilder
     func makeView() -> some View {
         switch self {
-        case .readingList:
-            ReadingListView()
-        case .book(let isbnCode):
-            BookView(isbnCode: isbnCode)
         case .bookRegister:
             BookRegisterView()
-        }
-    }
-    
-    var path: Path {
-        switch self {
+        case .bookSelector:
+            BookSelectorView()
+        case .readingEditor(readingBook: let readingBook):
+            ReadingEditorView(readingBook: readingBook)
         case .readingList:
-            return .readingList
-        case .book:
-            return .book
-        case .bookRegister:
-            return .bookRegister
+            ReadingListView()
+        case .readingRegister(let book):
+            ReadingRegisterView(book: book)
         }
     }
 }

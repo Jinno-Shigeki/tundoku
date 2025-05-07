@@ -29,14 +29,14 @@ final class BookRegisterViewModel {
         self.filer = filer
     }
     
-    func register() {
+    func register() -> Book? {
         if !Book.isValidRequiredInput(title: title, page: page) {
             alert = (true, "必須項目を入力してください", "タイトルとページ数は入力必須です")
-            return
+            return nil
         }
         if !Book.isValidPageInput(page) {
             alert = (true, "ページ数が正しくありません", "ページ数は正数で入力してください")
-            return
+            return nil
         }
         let book = Book(
             title: title,
@@ -52,9 +52,10 @@ final class BookRegisterViewModel {
             try bookRepository.registerOrUpdate(book: book)
         } catch {
             alert = (true, "登録に失敗しました", error.localizedDescription)
-            return
+            return nil
         }
         isRegistered = true
+        return book
     }
     
     func addCapturedImage(_ image: UIImage) {
@@ -74,5 +75,19 @@ final class BookRegisterViewModel {
             return
         }
         try? filer.removeImage(imageURL: imageURL)
+    }
+    
+    func fetchBookFromISBN(isbnCode: String) async {
+        do {
+            let result = try await bookRepository.fetch(isbnCode: isbnCode)
+            title = result.title
+            author = result.author ?? ""
+            page = String(result.page)
+            isbn = result.isbn ?? ""
+            publishDate = result.publishDate ?? Date()
+            imageURL = result.imageUrl
+        } catch {
+            alert = (true, "本の情報が取得できませんでした", error.localizedDescription)
+        }
     }
 }

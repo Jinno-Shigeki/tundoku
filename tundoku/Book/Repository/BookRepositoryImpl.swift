@@ -31,16 +31,14 @@ struct BookRepositoryImpl: BookRepository {
     @MainActor
     func registerOrUpdate(book: Book) throws {
         let bookData = convert(book: book)
-        let context = ModelContainer.appContainer.mainContext
-        context.insert(bookData)
-        try context.save()
+        ModelContainer.appContainer.mainContext.insert(bookData)
+        try ModelContainer.appContainer.mainContext.save()
     }
     
     @MainActor
     func fetchAll() throws -> [Book] {
-        let context = ModelContainer.appContainer.mainContext
         let fetchDescriptor = FetchDescriptor<BookData>(predicate: nil, sortBy: [.init(\.updatedAt)] )
-        let bookDatas = try context.fetch(fetchDescriptor)
+        let bookDatas = try ModelContainer.appContainer.mainContext.fetch(fetchDescriptor)
         return bookDatas.map { convertData(bookData: $0) }
     }
 }

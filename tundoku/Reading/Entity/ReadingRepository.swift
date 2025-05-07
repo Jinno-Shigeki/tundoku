@@ -12,4 +12,6 @@ protocol ReadingRepository {
     func register(bookId: String, readingPage: Int) throws
     @MainActor
     func fetchAll() throws -> [Reading]
+    @MainActor
+    func updateReadingPage(id: String, readingPage: Int) throws -> Reading 
 }

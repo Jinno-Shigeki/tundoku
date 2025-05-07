@@ -23,11 +23,13 @@ final class ReadingRegisterViewModel {
         self.readingRepository = readingRepository
     }
     
-    func register(bookid: String) {
+    func register(bookid: String) -> Bool {
         do {
             try readingRepository.register(bookId: bookid, readingPage: readingPage)
+            return true
         } catch {
             alert = (true, "追加できませんでした、もう一度お試しください。", error.localizedDescription)
+            return false
         }
     }
 }

@@ -56,7 +56,7 @@ struct ReadingRegisterView: View {
                 VStack(alignment: .leading, spacing: 24) {
                     Text("本の情報")
                         .font(.headline)
-
+                    
                     HStack(alignment: .top) {
                         AsyncImage(url: book.imageUrl) { image in
                             image
@@ -76,11 +76,9 @@ struct ReadingRegisterView: View {
                             Text(book.title)
                                 .font(.caption.bold())
                             
-                            if let author = book.author {
-                                Text(author)
-                                    .fontWeight(.thin)
-                                    .font(.caption2)
-                            }
+                            Text(book.author ?? "不明")
+                                .fontWeight(.thin)
+                                .font(.caption2)
                             
                             Text("\(book.page) ページ")
                                 .fontWeight(.thin)
@@ -88,11 +86,19 @@ struct ReadingRegisterView: View {
                         }
                     }
                     
-                    Text(book.publisher ?? "")
-                        .font(.caption)
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("出版社")
+                            .font(.caption.bold())
+                        Text(book.publisher ?? "不明")
+                            .font(.caption2)
+                    }
                     
-                    Text(book.isbn ?? "")
-                        .font(.caption)
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("ISBNコード")
+                            .font(.caption.bold())
+                        Text(book.isbn ?? "不明")
+                            .font(.caption)
+                    }
                 }
             }
             .padding(.horizontal, 16)
@@ -101,7 +107,9 @@ struct ReadingRegisterView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    viewModel.register(bookid: book.id)
+                    if viewModel.register(bookid: book.id) {
+                        Router.shared.popRoot()
+                    }
                 } label: {
                     Text("追加")
                 }

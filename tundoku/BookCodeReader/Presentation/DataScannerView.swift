@@ -51,7 +51,7 @@ struct DataScannerView: UIViewControllerRepresentable {
             for item in allItems {
                 switch item {
                 case .barcode(let barcode):
-                    parent.scannedCode = barcode.payloadStringValue ?? "Unable to decode the scanned code"
+                    parent.scannedCode = barcode.payloadStringValue ?? ""
                 default:
                     continue
                 }

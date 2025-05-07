@@ -38,17 +38,21 @@ struct ReadingListCell: View {
                 Spacer()
             }
             
-            ReadingProgress(totalPage: readingBook.book.page, readingPage: readingBook.readingPage)
+            ReadingProgress(totalPage: readingBook.book.page, readingPage: readingBook.reading.readingPage)
         }
         .padding([.horizontal, .vertical], 16)
     }
 }
 
 #Preview {
+    let bookId1 = UUID().uuidString
+    let bookId2 = UUID().uuidString
+    
     VStack {
         ReadingListCell(
             readingBook: ReadingBook(
                 book: Book (
+                    id: bookId1,
                     title: "AWS運用入門",
                     page: 479,
                     author: "佐竹陽一, 山崎翔平, 小倉大",
@@ -57,7 +61,11 @@ struct ReadingListCell: View {
                     isbn: "9784815615499",
                     imageUrl: nil
                 ),
-                readingPage: 10
+                reading: Reading(
+                    id: UUID().uuidString,
+                    readingPage: 100,
+                    bookId: bookId1
+                )
             )
         )
         .background(.brown.opacity(0.1))
@@ -65,6 +73,7 @@ struct ReadingListCell: View {
         ReadingListCell(
             readingBook: ReadingBook(
                 book: Book (
+                    id: bookId2,
                     title: "AWS運用入門",
                     page: 0,
                     author: nil,
@@ -73,7 +82,11 @@ struct ReadingListCell: View {
                     isbn: nil,
                     imageUrl: nil
                 ),
-                readingPage: 0
+                reading: Reading(
+                    id: UUID().uuidString,
+                    readingPage: 0,
+                    bookId: bookId2
+                )
             )
         )
         .background(.brown.opacity(0.1))

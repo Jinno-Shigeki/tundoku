@@ -5,17 +5,19 @@
 //  Created by 神野成紀 on 2025/05/01.
 //
 
-struct ScannedCode {
+import Foundation
+
+struct ScannedCode: Equatable {
     var code: String
     var isValid: Bool {
-        ScannedCode.validate(code: code)
+        validate(code: code)
     }
     
     init(_ code: String) {
         self.code = code
     }
     
-    private static func validate(code: String) -> Bool {
+    private func validate(code: String) -> Bool {
         // ISBN-13コードのみOKとする
         // 1. 13桁かどうか
         guard code.count == 13 else { return false }

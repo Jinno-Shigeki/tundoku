@@ -9,10 +9,14 @@ import Foundation
 
 struct ReadingBook: Hashable {
     let book: Book
-    let readingPage: Int
+    let reading: Reading
     
-    init(book: Book, readingPage: Int) {
+    init(book: Book, reading: Reading) {
         self.book = book
-        self.readingPage = readingPage
+        self.reading = reading
+    }
+    
+    func updateReading(_ reading: Reading) -> ReadingBook {
+        ReadingBook(book: book, reading: reading)
     }
 }

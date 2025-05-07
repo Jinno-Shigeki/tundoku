@@ -17,15 +17,20 @@ final class ReadingData {
     var updatedAt: Date
     
     init(
+        id: String = UUID().uuidString,
         bookId: String,
         readingPage: Int = 0,
         createdAt: Date = Date(),
         updatedAt: Date = Date()
     ) {
-        self.id = UUID().uuidString
+        self.id = id
         self.readingPage = readingPage
         self.bookId = bookId
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+    }
+    
+    func updateReadingPage(_ newReadingPage: Int) {
+        self.readingPage = newReadingPage
     }
 }

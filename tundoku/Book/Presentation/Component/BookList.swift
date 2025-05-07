@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BookListView: View {
+struct BookList: View {
     @State private var viewModel = BookListViewModel(
         bookRepository: BookRepositoryImpl(openBDRepository: OpenBDRepositoryImpl())
     )
@@ -15,7 +15,7 @@ struct BookListView: View {
     let selectedHandler: ((Book) -> Void)?
     
     var body: some View {
-        ScrollView {
+        VStack {
             ForEach(viewModel.books, id: \.self) { book in
                 if isSelectable {
                     Button {
@@ -23,7 +23,7 @@ struct BookListView: View {
                     } label: {
                         makeCell(book: book)
                     }
-                    .tint(.black)
+                    .tint(.primary)
                 } else {
                     makeCell(book: book)
                 }
@@ -52,9 +52,8 @@ struct BookListView: View {
 
 #Preview {
     PreviewSupport.createPreviewContainer()
-    return NavigationStack {
-        BookListView(isSelectable: false)
-            .padding(.top, 16)
-            .navigationTitle("一覧")
+    return VStack {
+        BookList(isSelectable: false)
+        Spacer()
     }
 }

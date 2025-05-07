@@ -23,10 +23,23 @@ struct ReadingRepositoryImpl: ReadingRepository {
         let result = try context.fetch(descripter)
         return result.map { convertData(data: $0) }
     }
+    
+    @MainActor
+    func updateReadingPage(id: String, readingPage: Int) throws -> Reading {
+        let context = ModelContainer.appContainer.mainContext
+        let descripter = FetchDescriptor<ReadingData>(predicate: #Predicate { $0.id == id })
+        guard let data = try context.fetch(descripter).first else {
+            throw NSError(domain: "jin.tundoku", code: 404)
+        }
+        data.updateReadingPage(readingPage)
+        context.insert(data)
+        try context.save()
+        return convertData(data: data)
+    }
 }
 
 extension ReadingRepositoryImpl {
-    func convertData(data: ReadingData) -> Reading {
+    private func convertData(data: ReadingData) -> Reading {
         Reading(
             id: data.id,
             readingPage: data.readingPage,

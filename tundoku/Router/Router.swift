@@ -25,6 +25,6 @@ public final class Router {
     }
     
     func popRoot() {
-        path.removeLast(path.count - 1)
+        path = NavigationPath()
     }
 }

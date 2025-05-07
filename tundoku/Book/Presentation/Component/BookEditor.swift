@@ -65,16 +65,13 @@ struct BookEditor: View {
         }
         .toolbar {
             ToolbarItem(placement: .keyboard) {
-                HStack(alignment: .center) {
-                    Spacer()
-                    Button {
-                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                    } label: {
-                        Text("完了")
-                    }
+                Button("完了") {
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }
+                .frame(maxWidth: .infinity, alignment: .trailing)
             }
         }
+        .ignoresSafeArea(.keyboard)
     }
     
     init(

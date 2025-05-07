@@ -10,14 +10,9 @@ import VisionKit
 
 struct BookCodeReaderView: View {
     @State var isStartScanner = true
-    @State private var scannedCode = ScannedCode("") {
-        didSet {
-            if scannedCode.isValid {
-                isStartScanner = false
-                fetchBookCode(scannedCode.code)
-            }
-        }
-    }
+    @State private var scannedCode = ScannedCode("")
+    
+    @Environment(\.dismiss) private var dismiss
     
     let fetchBookCode: (_ code: String) -> Void
     
@@ -30,8 +25,22 @@ struct BookCodeReaderView: View {
             )
             
             if !scannedCode.isValid {
-                Text("Please scan ISBN code")
-                    .padding(.bottom, 16)
+                VStack {
+                    Text("ISBNコードを読み込んでください")
+                        .font(.caption.bold())
+                        .padding(.bottom, 8)
+                    Text("バーコードが二つある場合は、上段のバーコードを読み取ってください。")
+                        .font(.caption2)
+                        .padding([.bottom, .horizontal], 32)
+                        .multilineTextAlignment(.center)
+                }
+            }
+        }
+        .onChange(of: scannedCode) { _, newValue in
+            if newValue.isValid {
+                isStartScanner = false
+                fetchBookCode(newValue.code)
+                dismiss()
             }
         }
     }

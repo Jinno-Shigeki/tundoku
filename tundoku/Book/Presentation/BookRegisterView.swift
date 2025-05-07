@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct BookRegisterView: View {
-    private enum SheetType {
+    private enum SheetType: String, Identifiable {
         case camera
         case barcode
+        var id: String { rawValue }
     }
 
     @State private var viewModel = BookRegisterViewModel(
         bookRepository: BookRepositoryImpl(openBDRepository: OpenBDRepositoryImpl()),
         filer: FilerImpl()
     )
-    @State private var sheetState: (Bool, SheetType) = (false, .camera)
+    @State private var sheetType: SheetType? = nil
     
     var body: some View {
         ScrollView {
@@ -31,8 +32,8 @@ struct BookRegisterView: View {
                 onCapturedImage: { viewModel.addCapturedImage($0) }
             )
         }
-        .sheet(isPresented: $sheetState.0) {
-            switch sheetState.1 {
+        .sheet(item: $sheetType) { sheetType in
+            switch sheetType {
             case .camera:
                 CameraView() { uiImage in
                     viewModel.addCapturedImage(uiImage)
@@ -40,7 +41,9 @@ struct BookRegisterView: View {
                 .edgesIgnoringSafeArea(.all)
             case .barcode:
                 BookCodeReaderView { code in
-                    
+                    Task {
+                        await viewModel.fetchBookFromISBN(isbnCode: code)
+                    }
                 }
                 .edgesIgnoringSafeArea(.all)
             }
@@ -48,14 +51,17 @@ struct BookRegisterView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    
+                    sheetType = .barcode
                 } label: {
                     Image(systemName: "barcode.viewfinder")
                 }
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    viewModel.register()
+                    guard let book = viewModel.register() else {
+                        return
+                    }
+                    Router.shared.push(.readingRegister(book: book))
                 } label: {
                     Text("追加")
                 }
