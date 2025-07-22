@@ -17,7 +17,7 @@ struct ReadingProgress: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text("\(percentage)%")
-                .font(.caption)
+                .font(.body)
             
             ProgressView(value: progress)
                 .progressViewStyle(.linear)

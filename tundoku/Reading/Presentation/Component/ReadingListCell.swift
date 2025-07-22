@@ -11,7 +11,7 @@ struct ReadingListCell: View {
     let readingBook: ReadingBook
     
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 8) {
             HStack(alignment: .top, spacing: 16) {
                 AsyncImage(url: readingBook.book.imageUrl) { image in
                     image
@@ -21,18 +21,18 @@ struct ReadingListCell: View {
                     Image(systemName: "book.closed")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 32, height: 48)
+                        .frame(width: 35, height: 50)
                 }
-                .frame(width: 64, height: 84)
+                .frame(width: 75, height: 90)
                 .background(.gray.opacity(0.2))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(readingBook.book.title)
-                        .font(.headline)
+                        .font(.title2.bold())
                         .lineLimit(2)
                     Text(readingBook.book.author ?? "")
-                        .font(.caption.weight(.thin))
+                        .font(.body.weight(.thin))
                         .lineLimit(1)
                 }
                 Spacer()
@@ -65,7 +65,6 @@ struct ReadingListCell: View {
                 )
             )
         )
-        .background(.brown.opacity(0.1))
         
         ReadingListCell(
             readingBook: ReadingBook(
@@ -83,6 +82,6 @@ struct ReadingListCell: View {
                 )
             )
         )
-        .background(.brown.opacity(0.1))
     }
+    .background(.brown.opacity(0.1))
 }

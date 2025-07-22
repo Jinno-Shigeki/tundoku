@@ -19,7 +19,7 @@ struct ReadingRegisterView: View {
             VStack(alignment: .leading, spacing: 32) {
                 VStack(alignment: .leading, spacing: 12) {
                     Text("現在のページ")
-                        .font(.subheadline.bold())
+                        .font(.title2.bold())
                     
                     TextField("0", value: $viewModel.readingPage, format: .number)
                         .font(.body)
@@ -34,13 +34,13 @@ struct ReadingRegisterView: View {
                 VStack(alignment: .leading, spacing: 16) {
                     HStack(alignment: .bottom) {
                         Text("進捗")
-                            .font(.subheadline.bold())
+                            .font(.title2.bold())
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
                         let percentage: Double = Double(viewModel.readingPage) / Double(book.page) * 100
                         Text("\(String(format: "%.0f", percentage))%")
                             .fontWeight(.thin)
-                            .font(.footnote.bold())
+                            .font(.body.bold())
                     }
                     
                     ProgressView(value: Double(viewModel.readingPage) / Double(book.page))
@@ -49,40 +49,40 @@ struct ReadingRegisterView: View {
                     
                     Text("残りページ数: \(book.page - viewModel.readingPage)")
                         .fontWeight(.thin)
-                        .font(.footnote.bold())
+                        .font(.body.bold())
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 
                 VStack(alignment: .leading, spacing: 24) {
                     Text("本の情報")
-                        .font(.headline)
+                        .font(.title2.bold())
                     
                     HStack(alignment: .top) {
                         AsyncImage(url: book.imageUrl) { image in
                             image
                                 .scaledToFit()
-                                .frame(width: 75, height: 90)
+                                .frame(width: 115, height: 150)
                                 .background(.gray.opacity(0.2))
                                 .clipShape(RoundedRectangle(cornerRadius: 8))
                         } placeholder: {
                             Image(systemName: "book.closed")
                                 .scaledToFit()
-                                .frame(width: 75, height: 90)
+                                .frame(width: 115, height: 150)
                                 .background(.gray.opacity(0.2))
                                 .clipShape(RoundedRectangle(cornerRadius: 8))
                         }
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text(book.title)
-                                .font(.caption.bold())
+                                .font(.title3.bold())
                             
                             Text(book.author ?? "不明")
                                 .fontWeight(.thin)
-                                .font(.caption2)
+                                .font(.body)
                             
                             Text("\(book.page) ページ")
                                 .fontWeight(.thin)
-                                .font(.caption2)
+                                .font(.body)
                         }
                     }
                 }
