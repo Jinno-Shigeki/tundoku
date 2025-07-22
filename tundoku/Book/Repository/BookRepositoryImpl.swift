@@ -21,9 +21,6 @@ struct BookRepositoryImpl: BookRepository {
             title: result.summary.title ?? "",
             page: 0,
             author: result.summary.author,
-            publisher: result.summary.publisher,
-            publishDate: result.summary.convertDate(),
-            isbn: result.summary.isbn,
             imageUrl: result.summary.convertURL()
         )
     }
@@ -50,9 +47,6 @@ extension BookRepositoryImpl {
             title: book.title,
             page: book.page,
             author: book.author,
-            publisher: book.publisher,
-            publishDate: book.publishDate,
-            isbn: book.isbn,
             imageUrl: book.imageUrl
         )
     }
@@ -63,9 +57,6 @@ extension BookRepositoryImpl {
             title: bookData.title,
             page: bookData.page,
             author: bookData.author,
-            publisher: bookData.publisher,
-            publishDate: bookData.publishDate,
-            isbn: bookData.isbn,
             imageUrl: bookData.imageUrl
         )
     }

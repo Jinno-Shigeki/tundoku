@@ -56,9 +56,6 @@ struct ReadingListCell: View {
                     title: "AWS運用入門",
                     page: 479,
                     author: "佐竹陽一, 山崎翔平, 小倉大",
-                    publisher: "SBクリエイティブ株式会社",
-                    publishDate: Date(),
-                    isbn: "9784815615499",
                     imageUrl: nil
                 ),
                 reading: Reading(
@@ -77,9 +74,6 @@ struct ReadingListCell: View {
                     title: "AWS運用入門",
                     page: 0,
                     author: nil,
-                    publisher: nil,
-                    publishDate: nil,
-                    isbn: nil,
                     imageUrl: nil
                 ),
                 reading: Reading(

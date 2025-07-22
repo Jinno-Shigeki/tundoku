@@ -15,7 +15,7 @@ struct PreviewSupport {
         try? context.delete(model: BookData.self)
         
         let books: [BookData] = [
-            BookData(title: "長いタイトル長いタイトル長いタイトル長いタイトル長いタイトル長いタイトル長いタイトル", page: 300, author: "長い名前長い名前長い名前長い名前長い名前長い名前", publisher: "長い出版社名称長い出版社名称長い出版社名称長い出版社名称長い出版社名称", publishDate: Date(), isbn: "9784063574831", imageUrl: URL(string: "https://img.hanmoto.com/bd/img/9784780802047.jpg")!), BookData(title: "タイトル", page: 300, author: "田中太郎"), BookData( title: "タイトル", page: 300 )
+            BookData(title: "長いタイトル長いタイトル長いタイトル長いタイトル長いタイトル長いタイトル長いタイトル", page: 300, author: "長い名前長い名前長い名前長い名前長い名前長い名前", imageUrl: URL(string: "https://img.hanmoto.com/bd/img/9784780802047.jpg")!), BookData(title: "タイトル", page: 300, author: "田中太郎"), BookData( title: "タイトル", page: 300 )
         ]
         for book in books {
             context.insert(book)

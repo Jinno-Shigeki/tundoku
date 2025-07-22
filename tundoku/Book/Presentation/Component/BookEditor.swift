@@ -11,8 +11,6 @@ struct BookEditor: View {
     @Binding var title: String
     @Binding var author: String
     @Binding var page: String
-    @Binding var isbn: String
-    @Binding var publishDate: Date
     
     @State private var isCameraSheet: Bool = false
     
@@ -42,17 +40,6 @@ struct BookEditor: View {
             )
             .keyboardType(.numberPad)
             
-            DatePicker("発行日", selection: $publishDate, displayedComponents: [.date])
-                .font(.headline)
-                .datePickerStyle(.compact)
-            
-            textFieldSection(
-                title: "ISBNコード",
-                placeHolder: "exp.) 9780000000000",
-                text: $isbn
-            )
-            .keyboardType(.numberPad)
-            
             imageSection()
         }
         .padding(.horizontal, 16)
@@ -78,16 +65,12 @@ struct BookEditor: View {
         title: Binding<String>,
         author: Binding<String>,
         page: Binding<String>,
-        isbn: Binding<String>,
-        publishDate: Binding<Date>,
         imageURL: URL? = nil,
         onCapturedImage: @escaping (UIImage) -> Void
     ) {
         self._title = title
         self._author = author
         self._page = page
-        self._isbn = isbn
-        self._publishDate = publishDate
         self.imageURL = imageURL
         self.onCapturedImage = onCapturedImage
     }
@@ -103,7 +86,7 @@ struct BookEditor: View {
                 Text(title)
                     .font(.headline)
                 if isRequired {
-                    Text("※")
+                    Text("※必須")
                         .font(.caption2)
                         .foregroundStyle(.red.opacity(0.8))
                 }
@@ -151,11 +134,14 @@ struct BookEditor: View {
     @Previewable @State var title: String = ""
     @Previewable @State var author: String = ""
     @Previewable @State var page: String = ""
-    @Previewable @State var isbn: String = ""
-    @Previewable @State var publishDate: Date = Date()
     
     NavigationStack {
-        BookEditor(title: $title, author: $author, page: $page, isbn: $isbn, publishDate: $publishDate, imageURL: nil) { _ in
+        BookEditor(
+            title: $title,
+            author: $author,
+            page: $page,
+            imageURL: nil
+        ) { _ in
             
         }
     }

@@ -14,9 +14,6 @@ final class BookData {
     var title: String
     var page: Int
     var author: String?
-    var publisher: String?
-    var publishDate: Date?
-    var isbn: String?
     var imageUrl: URL?
     var createdAt: Date
     var updatedAt: Date
@@ -26,9 +23,6 @@ final class BookData {
         title: String,
         page: Int,
         author: String? = nil,
-        publisher: String? = nil,
-        publishDate: Date? = nil,
-        isbn: String? = nil,
         imageUrl: URL? = nil,
         createdAt: Date = Date(),
         updatedAt: Date = Date()
@@ -37,9 +31,6 @@ final class BookData {
         self.title = title
         self.page = page
         self.author = author
-        self.publisher = publisher
-        self.publishDate = publishDate
-        self.isbn = isbn
         self.imageUrl = imageUrl
         self.createdAt = Date()
         self.updatedAt = Date()

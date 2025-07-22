@@ -29,19 +29,19 @@ struct BookListCell: View {
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(book.title)
-                    .font(.caption.bold())
+                    .font(.headline)
                     .lineLimit(2)
                 
                 if let author = book.author {
                     Text(author)
                         .fontWeight(.thin)
-                        .font(.caption2)
+                        .font(.body)
                         .lineLimit(1)
                 }
                 
                 Text("\(book.page) ページ")
                     .fontWeight(.thin)
-                    .font(.caption2)
+                    .font(.footnote)
                     .lineLimit(1)
             }
             
@@ -57,9 +57,6 @@ struct BookListCell: View {
                 title: "長いタイトル長いタイトル長いタイトル長いタイトル長いタイトル長いタイトル長いタイトル",
                 page: 300,
                 author: "長い名前長い名前長い名前長い名前長い名前長い名前",
-                publisher: "長い出版社名称長い出版社名称長い出版社名称長い出版社名称長い出版社名称",
-                publishDate: Date(),
-                isbn: "9784063574831",
                 imageUrl: URL(string: "https://img.hanmoto.com/bd/img/9784780802047.jpg")!
             )
         )

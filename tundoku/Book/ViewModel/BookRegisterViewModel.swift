@@ -14,8 +14,6 @@ final class BookRegisterViewModel {
     var title: String = ""
     var author: String = ""
     var page: String = ""
-    var isbn: String = ""
-    var publishDate: Date = Date()
     var imageURL: URL? = nil
     
     var isRegistered: Bool = false
@@ -42,9 +40,6 @@ final class BookRegisterViewModel {
             title: title,
             page: Int(page)!,
             author: author,
-            publisher: nil,
-            publishDate: publishDate,
-            isbn: isbn,
             imageUrl: imageURL
         )
         
@@ -83,8 +78,6 @@ final class BookRegisterViewModel {
             title = result.title
             author = result.author ?? ""
             page = String(result.page)
-            isbn = result.isbn ?? ""
-            publishDate = result.publishDate ?? Date()
             imageURL = result.imageUrl
         } catch {
             alert = (true, "本の情報が取得できませんでした", error.localizedDescription)

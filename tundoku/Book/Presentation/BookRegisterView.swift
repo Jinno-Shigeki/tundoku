@@ -26,8 +26,6 @@ struct BookRegisterView: View {
                 title: $viewModel.title,
                 author: $viewModel.author,
                 page: $viewModel.page,
-                isbn: $viewModel.isbn,
-                publishDate: $viewModel.publishDate,
                 imageURL: viewModel.imageURL,
                 onCapturedImage: { viewModel.addCapturedImage($0) }
             )

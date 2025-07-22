@@ -64,20 +64,6 @@ struct ReadingEditorView: View {
                                 .font(.caption2)
                         }
                     }
-                    
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("出版社")
-                            .font(.caption.bold())
-                        Text(viewModel.readingBook.book.publisher ?? "不明")
-                            .font(.caption2)
-                    }
-                    
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("ISBNコード")
-                            .font(.caption.bold())
-                        Text(viewModel.readingBook.book.isbn ?? "不明")
-                            .font(.caption)
-                    }
                 }
                 .padding(.top, 16)
             }

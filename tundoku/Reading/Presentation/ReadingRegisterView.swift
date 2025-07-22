@@ -85,20 +85,6 @@ struct ReadingRegisterView: View {
                                 .font(.caption2)
                         }
                     }
-                    
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("出版社")
-                            .font(.caption.bold())
-                        Text(book.publisher ?? "不明")
-                            .font(.caption2)
-                    }
-                    
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("ISBNコード")
-                            .font(.caption.bold())
-                        Text(book.isbn ?? "不明")
-                            .font(.caption)
-                    }
                 }
             }
             .padding(.horizontal, 16)
@@ -121,6 +107,6 @@ struct ReadingRegisterView: View {
 
 #Preview {
     NavigationStack {
-        ReadingRegisterView(book: Book(title: "ドメイン駆動設計", page: 100, author: "太郎くん", publisher: "田中出版", isbn: "9784813014117"))
+        ReadingRegisterView(book: Book(title: "ドメイン駆動設計", page: 100, author: "太郎くん"))
     }
 }
