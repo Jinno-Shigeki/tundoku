@@ -11,17 +11,23 @@ struct SettingView: View {
     var body: some View {
         VStack {
             Form {
-                Section {
+                Section("設定") {
                     Button {
                             
                     } label: {
                         Label("一覧", systemImage: "book")
-                            .font(.caption)
-                            .foregroundStyle(.primary)
-                            .labelStyle(.titleAndIcon)
                     }
-                } header: {
-                    Text("")
+                }
+                .tint(.primary)
+                
+                Section("アプリ情報") {
+                    Label("バージョン 1.0.0", systemImage: "info.circle")
+                    
+                    Button {
+                        // Webサイトや利用規約へ
+                    } label: {
+                        Label("利用規約", systemImage: "doc.plaintext")
+                    }
                 }
                 .tint(.primary)
             }
