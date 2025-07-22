@@ -8,15 +8,33 @@
 import Foundation
 
 struct ReadingBook: Hashable {
-    let book: Book
     let reading: Reading
+    let title: String
+    let page: Int
+    let author: String?
+    let imageUrl: URL?
     
-    init(book: Book, reading: Reading) {
-        self.book = book
+    init(
+        reading: Reading,
+        title: String,
+        page: Int,
+        author: String?,
+        imageUrl: URL?
+    ) {
         self.reading = reading
+        self.title = title
+        self.page = page
+        self.author = author
+        self.imageUrl = imageUrl
     }
     
     func updateReading(_ reading: Reading) -> ReadingBook {
-        ReadingBook(book: book, reading: reading)
+        ReadingBook(
+            reading: reading,
+            title: title,
+            page: page,
+            author: author,
+            imageUrl: imageUrl
+        )
     }
 }

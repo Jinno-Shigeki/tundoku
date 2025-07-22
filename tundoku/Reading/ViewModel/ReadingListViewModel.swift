@@ -36,7 +36,13 @@ final class ReadingListViewModel {
             guard let book = books.first(where: { $0.id == reading.bookId }) else {
                 return nil
             }
-            return ReadingBook(book: book, reading: reading)
+            return ReadingBook(
+                reading: reading,
+                title: book.title,
+                page: book.page,
+                author: book.author,
+                imageUrl: book.imageUrl
+            )
         }
     }
 }

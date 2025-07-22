@@ -15,7 +15,7 @@ struct ReadingEditorView: View {
             VStack(alignment: .leading, spacing: 24) {
                 Text("現在の進捗")
                     .font(.title2.bold())
-                Text("\(viewModel.readingBook.book.page)ページ中、\(viewModel.readingBook.reading.readingPage)ページ")
+                Text("\(viewModel.readingBook.page)ページ中、\(viewModel.readingBook.reading.readingPage)ページ")
                     .font(.body.weight(.thin))
                 
                 VStack(spacing: 0) {
@@ -28,7 +28,7 @@ struct ReadingEditorView: View {
                             .font(.body)
                     }
                     
-                    Slider(value: $viewModel.updateProgressValue, in: 0...CGFloat(viewModel.readingBook.book.page), step: 1)
+                    Slider(value: $viewModel.updateProgressValue, in: 0...CGFloat(viewModel.readingBook.page), step: 1)
                 }
                 .padding(.top, 16)
                 
@@ -37,7 +37,7 @@ struct ReadingEditorView: View {
                         .font(.title2.bold())
                     
                     HStack(alignment: .top) {
-                        AsyncImage(url: viewModel.readingBook.book.imageUrl) { image in
+                        AsyncImage(url: viewModel.readingBook.imageUrl) { image in
                             image
                                 .scaledToFit()
                                 .frame(width: 115, height: 120)
@@ -52,14 +52,14 @@ struct ReadingEditorView: View {
                         }
                         
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(viewModel.readingBook.book.title)
+                            Text(viewModel.readingBook.title)
                                 .font(.title3.bold())
                             
-                            Text(viewModel.readingBook.book.author ?? "不明")
+                            Text(viewModel.readingBook.author ?? "不明")
                                 .fontWeight(.thin)
                                 .font(.body)
                             
-                            Text("\(viewModel.readingBook.book.page) ページ")
+                            Text("\(viewModel.readingBook.page) ページ")
                                 .fontWeight(.thin)
                                 .font(.body)
                         }
@@ -100,8 +100,11 @@ struct ReadingEditorView: View {
     NavigationStack {
         ReadingEditorView(
             readingBook: ReadingBook(
-                book: Book(id: bookId, title: "TEST", page: 200),
-                reading: Reading(id: UUID().uuidString, readingPage: 100, bookId: bookId)
+                reading: Reading(id: UUID().uuidString, readingPage: 100, bookId: bookId),
+                title: "TEST",
+                page: 200,
+                author: nil,
+                imageUrl: nil
             )
         )
     }

@@ -13,7 +13,7 @@ struct ReadingListCell: View {
     var body: some View {
         VStack(spacing: 8) {
             HStack(alignment: .top, spacing: 16) {
-                AsyncImage(url: readingBook.book.imageUrl) { image in
+                AsyncImage(url: readingBook.imageUrl) { image in
                     image
                         .resizable()
                         .scaledToFill()
@@ -28,17 +28,17 @@ struct ReadingListCell: View {
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(readingBook.book.title)
+                    Text(readingBook.title)
                         .font(.title2.bold())
                         .lineLimit(2)
-                    Text(readingBook.book.author ?? "")
+                    Text(readingBook.author ?? "")
                         .font(.body.weight(.thin))
                         .lineLimit(1)
                 }
                 Spacer()
             }
             
-            ReadingProgress(totalPage: readingBook.book.page, readingPage: readingBook.reading.readingPage)
+            ReadingProgress(totalPage: readingBook.page, readingPage: readingBook.reading.readingPage)
         }
         .padding([.horizontal, .vertical], 16)
     }
@@ -51,35 +51,29 @@ struct ReadingListCell: View {
     VStack {
         ReadingListCell(
             readingBook: ReadingBook(
-                book: Book (
-                    id: bookId1,
-                    title: "AWS運用入門",
-                    page: 479,
-                    author: "佐竹陽一, 山崎翔平, 小倉大",
-                    imageUrl: nil
-                ),
                 reading: Reading(
                     id: UUID().uuidString,
                     readingPage: 100,
                     bookId: bookId1
-                )
+                ),
+                title: "AWS運用入門",
+                page: 479,
+                author: "佐竹陽一, 山崎翔平, 小倉大",
+                imageUrl: nil
             )
         )
         
         ReadingListCell(
             readingBook: ReadingBook(
-                book: Book (
-                    id: bookId2,
-                    title: "AWS運用入門",
-                    page: 0,
-                    author: nil,
-                    imageUrl: nil
-                ),
                 reading: Reading(
                     id: UUID().uuidString,
                     readingPage: 0,
                     bookId: bookId2
-                )
+                ),
+                title: "AWS運用入門",
+                page: 0,
+                author: nil,
+                imageUrl: nil
             )
         )
     }
