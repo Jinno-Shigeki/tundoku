@@ -8,11 +8,18 @@
 import SwiftUI
 
 struct BookEditor: View {
+    enum FieldType: Hashable {
+        case title
+        case author
+        case page
+    }
+
     @Binding var title: String
     @Binding var author: String
     @Binding var page: String
     
     @State private var isCameraSheet: Bool = false
+    @FocusState.Binding var focusState: FieldType?
     
     let imageURL: URL?
     let onCapturedImage: (UIImage) -> Void
@@ -25,12 +32,14 @@ struct BookEditor: View {
                 text: $title,
                 isRequired: true
             )
+            .focused($focusState, equals: .title)
             
             textFieldSection(
                 title: "著者",
                 placeHolder: "著者",
                 text: $author
             )
+            .focused($focusState, equals: .author)
             
             textFieldSection(
                 title: "ページ数",
@@ -39,6 +48,7 @@ struct BookEditor: View {
                 isRequired: true
             )
             .keyboardType(.numberPad)
+            .focused($focusState, equals: .page)
             
             imageSection()
         }
@@ -50,32 +60,25 @@ struct BookEditor: View {
             }
             .edgesIgnoringSafeArea(.all)
         }
-        .toolbar {
-            ToolbarItem(placement: .keyboard) {
-                Button("完了") {
-                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                }
-                .frame(maxWidth: .infinity, alignment: .trailing)
-            }
-        }
-        .ignoresSafeArea(.keyboard)
     }
     
     init(
         title: Binding<String>,
         author: Binding<String>,
         page: Binding<String>,
+        focusState: FocusState<FieldType?>.Binding,
         imageURL: URL? = nil,
         onCapturedImage: @escaping (UIImage) -> Void
     ) {
         self._title = title
         self._author = author
         self._page = page
+        self._focusState = focusState
         self.imageURL = imageURL
         self.onCapturedImage = onCapturedImage
     }
     
-    func textFieldSection(
+    private func textFieldSection(
         title: String,
         placeHolder: String,
         text: Binding<String>,
@@ -102,7 +105,7 @@ struct BookEditor: View {
         }
     }
     
-    func imageSection() -> some View {
+    private func imageSection() -> some View {
         VStack(alignment: .leading) {
             Text("画像")
                 .font(.headline)
@@ -134,12 +137,14 @@ struct BookEditor: View {
     @Previewable @State var title: String = ""
     @Previewable @State var author: String = ""
     @Previewable @State var page: String = ""
+    @Previewable @FocusState var focusState: BookEditor.FieldType?
     
     NavigationStack {
         BookEditor(
             title: $title,
             author: $author,
             page: $page,
+            focusState: $focusState,
             imageURL: nil
         ) { _ in
             

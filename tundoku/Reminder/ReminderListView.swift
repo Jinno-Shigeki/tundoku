@@ -11,6 +11,7 @@ struct ReminderListView: View {
     @StateObject private var viewModel = ReminderViewModel()
     @State private var newTime = Date()
     @State private var isPresentingAddReminder = false
+    @State private var isAlertPresented: Bool = false
 
     var body: some View {
         NavigationView {
@@ -32,15 +33,36 @@ struct ReminderListView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        isPresentingAddReminder = true
+                        Task.detached {
+                            let result = try? await UNUserNotificationCenter.current()
+                                .requestAuthorization(options: [.alert, .badge, .sound])
+                            await MainActor.run {
+                                if result ?? false {
+                                    isPresentingAddReminder = true
+                                } else {
+                                    isAlertPresented = true
+                                }
+                            }
+                        }
                     }) {
                         Image(systemName: "plus")
                     }
                 }
             }
             .sheet(isPresented: $isPresentingAddReminder) {
-//                AddReminderView(viewModel: viewModel)
+                AddReminderView()
             }
+            .alert(Text("通知を許可してください"), isPresented: $isAlertPresented, actions: {
+                Button("設定を開く") {
+                    if let url = URL(string: UIApplication.openSettingsURLString),
+                       UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+                Button("キャンセル", role: .cancel) { }
+            }, message: {
+                Text("リマインダーを追加するには通知設定を許可する必要があります。")
+            })
         }
     }
 }

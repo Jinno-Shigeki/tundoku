@@ -22,10 +22,13 @@ struct RootView: View {
             }
             
             
-            Text("リマインダー")
-                .tabItem {
-                    Label("リマインダー", systemImage: "calendar")
-                }
+            NavigationStack(path: $router.path) {
+                ReminderListView()
+                    .applyRouter()
+            }
+            .tabItem {
+                Label("リマインダー", systemImage: "calendar")
+            }
 
             NavigationStack(path: $router.path) {
                 SettingView()

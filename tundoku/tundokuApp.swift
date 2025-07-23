@@ -13,6 +13,9 @@ struct tundokuApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
+                .task {
+                    let _ = try? await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound])
+                }
         }
     }
 }

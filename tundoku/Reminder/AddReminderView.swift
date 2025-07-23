@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct AddReminderView: View {
+    enum TextFieldType: Hashable {
+        case title
+    }
     @Environment(\.dismiss) var dismiss
+    @FocusState private var focusState: TextFieldType?
     @State private var alarmDate = Date()
     @State private var alarmName = ""
     @State private var isSoundEnabled = true
@@ -29,6 +33,7 @@ struct AddReminderView: View {
                 List {
                     Section {
                         TextField("アラーム名（任意）", text: $alarmName)
+                            .focused($focusState, equals: .title)
                         Toggle("サウンド", isOn: $isSoundEnabled)
                         Toggle("繰り返し", isOn: $isRepeating)
                     }
@@ -56,6 +61,9 @@ struct AddReminderView: View {
                         dismiss()
                     }
                 }
+            }
+            .onTapGesture {
+                focusState = nil
             }
         }
     }

@@ -19,6 +19,7 @@ struct BookRegisterView: View {
         filer: FilerImpl()
     )
     @State private var sheetType: SheetType? = nil
+    @FocusState private var focusState: BookEditor.FieldType?
     
     var body: some View {
         ScrollView {
@@ -26,6 +27,7 @@ struct BookRegisterView: View {
                 title: $viewModel.title,
                 author: $viewModel.author,
                 page: $viewModel.page,
+                focusState: $focusState,
                 imageURL: viewModel.imageURL,
                 onCapturedImage: { viewModel.addCapturedImage($0) }
             )
@@ -71,6 +73,9 @@ struct BookRegisterView: View {
         }
         .onDisappear {
             viewModel.cleanImageIfUnregistered()
+        }
+        .onTapGesture {
+            focusState = nil
         }
         .navigationTitle("本を追加")
     }
